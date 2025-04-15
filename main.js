@@ -1,3 +1,13 @@
+function gerenciarFocoModal(modalID) {
+    const modal = document.getElementById(modalID);
+    const elementosModal = modal.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabomdex="-1"])');
+    const primeiroElemento = elementosModal[0];
+    const ultimoElemento = elementosModal[elementosModal.length -1];
+
+    primeiroElemento.focus();
+
+}
+
 let openedModal = null;
 
 function alternarModal(modalID, toggleTag) {
@@ -7,6 +17,17 @@ function alternarModal(modalID, toggleTag) {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         openedModal = modalID;
+        gerenciarFocoModal(modalID)
+        if (openedModal === 'ver-modal-contato') {
+            const  fields= document.querySelectorAll('#ver-modal-contato input, #ver-modal-contato textarea');
+            fields.forEach(field => {
+                if(field.type == 'radio' || field.type == 'checkbox') {
+                    field.checked = false;
+                } else {
+                    field.value = '';
+                }
+            })
+        }
     } else {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
